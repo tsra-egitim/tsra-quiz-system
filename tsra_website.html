@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mavi Küreler Arka Plan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            /* Creating a blue spheres background with CSS gradient */
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #3b82f6 100%);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Calibri Light', Calibri, 'Segoe UI', Arial, sans-serif;
+            font-weight: 300;
+            position: relative;
+        }
+
+        /* Adding animated blue spheres */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 70% 20%, rgba(96, 165, 250, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(147, 197, 253, 0.3) 0%, transparent 60%),
+                radial-gradient(circle at 30% 70%, rgba(59, 130, 246, 0.2) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
+            animation: floatSpheres 20s ease-in-out infinite;
+        }
+
+        @keyframes floatSpheres {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        /* İnce menü çubuğu */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #3b82f6 100%);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        /* Logo */
+        .logo {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-right: 40px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Menü linkleri */
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            display: inline-block;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            position: relative;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.6);
+            transition: width 0.3s ease;
+            display: none;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+            display: block;
+        }
+
+        /* Sağ taraf menü elemanları */
+        .nav-right {
+            margin-left: auto;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* İçerik alanı */
+        .content {
+            padding: 80px 40px 40px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hesaplayıcı stilleri */
+        .calculator-page {
+            padding: 80px 40px 40px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            overflow-y: auto;
+        }
+
+        .navigation-flow {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 8px;
+            border: 1px solid #ccc;
+            padding: 28px;
+            background: linear-gradient(to bottom, 
+                        #6ba3f0 0%, 
+                        #6ba3f0 33%, 
+                        #f5e6d3 34%, 
+                        #f5e6d3 66%, 
+                        #a8d5aa 67%, 
+                        #a8d5aa 100%);
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .row {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+            margin-bottom: 17px;
+        }
+
+        .row:first-child {
+            gap: 16px; /* 1. satır için iki kat aralık */
+        }
+
+        .row:nth-child(2) {
+            gap: 16px; /* 2. satır (variation) için iki kat aralık */
+        }
+
+        .row:nth-child(3) {
+            gap: 16px; /* 3. satır (alt) için iki kat aralık */
+        }
+
+        .row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .component {
+            width: 75px;
+            height: 95px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            border-style: outset;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.3), 
+                        inset 1px 1px 2px rgba(255,255,255,0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 1px;
+            background: white;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mc,
+        .mh,
+        .ch,
+        .tc,
+        .th {
+            height: 75px; /* MC, MH, CH, TC, TH kutularının boyu kısaltıldı */
+        }
+
+        .note2 {
+            width: 120px; /* YERDE HARİTA ÜZERİNDE için genişletildi */
+        }
+        
+        .component input {
+            width: 60px;
+            height: 24px;
+            border: 1px solid transparent;
+            text-align: center;
+            margin-top: 4px;
+            background: white;
+            color: black;
+        }
+        
+        .component select {
+            width: 65px;
+            height: 19px;
+            border: 1px solid transparent;
+            text-align: center;
+            margin-top: 4px;
+            font-size: 10px;
+            background: white;
+            color: black;
+        }
+
+        .component textarea {
+            width: 60px;
+            height: 40px;
+            border: 1px solid transparent;
+            text-align: center;
+            margin-top: 4px;
+            background: white;
+            color: black;
+            resize: none;
+            font-size: 12px;
+            padding: 2px;
+        }
+
+        .text-display {
+            width: 100%;
+            height: 85px;
+            border: none; /* Çerçeve kaldırıldı */
+            background: transparent; /* Şeffaf arka plan */
+            color: #000000;
+            font-size: 13px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 6px;
+            margin: 2px;
+            padding: 5px;
+            box-sizing: border-box;
+            pointer-events: none; /* Tıklanabilir olmaz */
+            user-select: none; /* Seçilemez */
+            line-height: 1.2;
+        }
+
+        .note1 .text-display {
+            color: #ffffff; /* HAVADA yazısı beyaz */
+            background: transparent; /* Şeffaf arka plan */
+        }
+
+        .note1 {
+            padding: 2px;
+            width: 85px;
+            background: transparent; /* Ana kutu da şeffaf */
+            border: none; /* Ana kutu çerçevesi yok */
+            box-shadow: none; /* Gölge efekti yok */
+        }
+
+        .note2 {
+            padding: 2px;
+            width: 140px;
+            background: transparent; /* Ana kutu da şeffaf */
+            border: none; /* Ana kutu çerçevesi yok */
+            box-shadow: none; /* Gölge efekti yok */
+        }
+        
+        .arrow {
+            font-size: 35px;
+            color: #333;
+            font-weight: 900;
+            font-family: Arial, sans-serif;
+            z-index: 10;
+            position: relative;
+        }
+        
+        /* Original color scheme - Row positions */
+        .mc { grid-column: 1; grid-row: 1; background: #d1ecf1; }
+        .arrow1 { grid-column: 2; grid-row: 1; }
+        .drift-top { grid-column: 3; grid-row: 1; background: #f8d7da; }
+        .arrow2 { grid-column: 4; grid-row: 1; }
+        .mh { grid-column: 5; grid-row: 1; background: #d1ecf1; }
+        .arrow3 { grid-column: 6; grid-row: 1; }
+        .dev { grid-column: 7; grid-row: 1; background: #ffe6cc; }
+        .arrow4 { grid-column: 8; grid-row: 1; }
+        .ch { grid-column: 9; grid-row: 1; background: #ffe0b3; }
+        
+        /* Vertical arrows */
+        .v-arrow1 { grid-column: 1; grid-row: 2; }
+        .v-arrow2 { grid-column: 1; grid-row: 4; }
+        .v-arrow3 { grid-column: 5; grid-row: 2; }
+        .v-arrow4 { grid-column: 5; grid-row: 4; }
+
+        /* Çift uçlu oklar için özel stil */
+        .v-arrow1::before,
+        .v-arrow3::before {
+            content: '↕';
+            font-size: 32px;
+            color: #333;
+            font-weight: 900;
+            font-family: Arial, sans-serif;
+            display: block;
+            text-align: center;
+            transform: scaleY(0.8);
+            line-height: 1;
+            z-index: 10;
+            position: relative;
+        }
+
+        .v-arrow2::before,
+        .v-arrow4::before {
+            content: '↕';
+            font-size: 32px;
+            color: #333;
+            font-weight: 900;
+            font-family: Arial, sans-serif;
+            display: block;
+            text-align: center;
+            transform: scaleY(0.8);
+            line-height: 1;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Normal okları gizle */
+        .v-arrow1,
+        .v-arrow2,
+        .v-arrow3,
+        .v-arrow4 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Tüm dikey oklar için aynı stil */
+        .v-arrow1::before,
+        .v-arrow2::before,
+        .v-arrow3::before,
+        .v-arrow4::before {
+            content: '↕';
+            font-size: 35px;
+            color: #333;
+            font-weight: 900;
+            font-family: Arial, sans-serif;
+            display: block;
+            text-align: center;
+            transform: scaleY(0.8);
+            line-height: 1;
+            z-index: 10;
+            position: relative;
+        }
+        
+        .variation1 { grid-column: 1; grid-row: 3; background: #fff3cd; }
+        .variation2 { grid-column: 5; grid-row: 3; background: #fff3cd; }
+        
+        .tc { grid-column: 1; grid-row: 5; background: #e8f5e8; }
+        .arrow5 { grid-column: 2; grid-row: 5; }
+        .drift-bottom { grid-column: 3; grid-row: 5; background: #f8d7da; }
+        .arrow6 { grid-column: 4; grid-row: 5; }
+        .th { grid-column: 5; grid-row: 5; background: #e8f5e8; }
+        
+        .component-label {
+            font-size: 15px;
+            font-weight: 900;
+            margin-bottom: 4px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            border-bottom: 0.5px solid #000;
+            padding-bottom: 1px;
+            margin-left: -5px;
+            margin-right: -5px;
+            color: black;
+        }
+
+        .note2 .component-label {
+            font-size: 10px; /* Uzun metin için küçültüldü */
+            line-height: 1.1;
+            height: 20px;
+            text-align: center;
+        }
+        
+        .direction-info {
+            font-size: 7px;
+            text-align: center;
+            line-height: 1;
+            margin-top: 1px;
+            height: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: normal;
+            color: black;
+        }
+        
+        .direction-placeholder {
+            height: 12px;
+            margin-top: 1px;
+        }
+        
+        /* Red styling for calculation components */
+        .drift-top .component-label,
+        .drift-bottom .component-label,
+        .variation1 .component-label,
+        .variation2 .component-label,
+        .variation3 .component-label,
+        .dev .component-label {
+            color: #dc3545;
+            font-size: 13px;
+            border-bottom-color: #dc3545;
+        }
+        
+        .drift-top,
+        .drift-bottom,
+        .variation1,
+        .variation2,
+        .variation3,
+        .dev {
+            border-color: #dc3545;
+        }
+        
+        .var-box {
+            position: relative;
+        }
+
+        /* İletişim sayfası stilleri */
+        .contact-page {
+            padding: 50px 40px 40px;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            overflow-y: auto;
+            padding-top: 60px;
+        }
+
+        .contact-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .contact-container h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: 300;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: white;
+            margin-bottom: 8px;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-container input,
+        .contact-container textarea,
+        #contact-form input,
+        #contact-form textarea,
+        input[type="text"],
+        input[type="email"], 
+        input[type="tel"],
+        textarea {
+            width: 100% !important;
+            padding: 12px 16px !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 8px !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            color: rgba(255, 255, 255, 0.25) !important;
+            font-size: 16px !important;
+            transition: all 0.3s ease !important;
+            backdrop-filter: blur(5px) !important;
+            -webkit-backdrop-filter: blur(5px) !important;
+            -webkit-text-fill-color: rgba(255, 255, 255, 0.25) !important;
+        }
+
+        .contact-container input:focus,
+        .contact-container textarea:focus,
+        #contact-form input:focus,
+        #contact-form textarea:focus,
+        input[type="text"]:focus,
+        input[type="email"]:focus, 
+        input[type="tel"]:focus,
+        textarea:focus {
+            outline: none !important;
+            border-color: rgba(255, 255, 255, 0.6) !important;
+            background: rgba(255, 255, 255, 0.15) !important;
+            color: rgba(255, 255, 255, 0.7) !important;
+            -webkit-text-fill-color: rgba(255, 255, 255, 0.7) !important;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-info p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .contact-info a {
+            color: #87ceeb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: white;
+        }
+
+        .success-message {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid rgba(40, 167, 69, 0.5);
+            color: #d4edda;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .error-message {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid rgba(220, 53, 69, 0.5);
+            color: #f8d7da;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        /* Hakkımızda sayfası stilleri */
+        .about-page {
+            padding: 50px 40px 40px;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            overflow-y: auto;
+            padding-top: 60px;
+        }
+
+        .about-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .about-title {
+            color: white;
+            font-size: 42px;
+            font-weight: 300;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .about-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 18px;
+            font-weight: 300;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .about-section {
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            color: #87ceeb;
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-content {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            line-height: 1.7;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            color: #87ceeb;
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 300;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            opacity: 0.9;
+            animation: fadeInOut 6s ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(20px); }
+            20% { opacity: 0.9; transform: translateY(0); }
+            80% { opacity: 0.9; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+
+        p {
+            font-size: 20px;
+            font-weight: 300;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+            opacity: 0.8;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <!-- İnce menü çubuğu -->
+    <nav>
+        <ul>
+            <li><a onclick="showHome()">Ana Sayfa</a></li>
+            <li><a onclick="showAbout()">Hakkımızda</a></li>
+            <li><a>Hizmetler</a></li>
+            <li><a>Portfolyo</a></li>
+            <li><a onclick="showCalculator()">Hesaplayıcı</a></li>
+            <li><a onclick="showContact()">İletişim</a></li>
+        </ul>
+        <div class="nav-right">
+            <a>Giriş</a>
+            <a>Kayıt Ol</a>
+        </div>
+    </nav>
+
+    <!-- İçerik alanı -->
+    <div class="content" id="main-content">
+        <h1>Hoş Geldiniz</h1>
+    </div>
+
+    <!-- Hesaplayıcı Sayfası -->
+    <div class="calculator-page" id="calculator-page" style="display: none;">
+        <div class="navigation-flow">
+            <!-- Row 1: MC Drift MH Deviation CH + Note -->
+            <div class="row">
+                <div class="component mc">
+                    <div class="component-label">MC</div>
+                    <div class="direction-placeholder"></div>
+                    <input type="number" id="mc" min="0" max="359" onchange="calculate()" placeholder="000">
+                </div>
+                
+                <div class="component drift-top">
+                    <div class="component-label">Drift</div>
+                    <div class="direction-info">(L ise çıkar)<br>(R ise topla)</div>
+                    <input type="number" id="drift" min="0" max="180" onchange="calculate()" placeholder="0">
+                    <select id="drift_dir" onchange="calculate()">
+                        <option value="L">L</option>
+                        <option value="R">R</option>
+                    </select>
+                </div>
+                
+                <div class="component mh">
+                    <div class="component-label">MH</div>
+                    <div class="direction-placeholder"></div>
+                    <input type="number" id="mh" min="0" max="359" onchange="calculate()" placeholder="000">
+                </div>
+                
+                <div class="component dev">
+                    <div class="component-label">Deviation</div>
+                    <div class="direction-info">(E ve + ise çıkar)<br>(W ve - ise topla)</div>
+                    <input type="number" id="dev" min="0" max="180" onchange="calculate()" placeholder="0">
+                    <select id="dev_dir" onchange="calculate()">
+                        <option value="E">E</option>
+                        <option value="W">W</option>
+                    </select>
+                </div>
+                
+                <div class="component ch">
+                    <div class="component-label">CH</div>
+                    <div class="direction-placeholder"></div>
+                    <input type="number" id="ch" min="0" max="359" onchange="calculate()" placeholder="000">
+                </div>
+
+                <div class="component note1">
+                    <div class="text-display">HAVADA</div>
+                </div>
+            </div>
+            
+            <!-- Row 2: Boş satır -->
+            
+            <!-- Row 3: Variations -->
+            <div class="row">
+                <div class="component variation1 var-box">
+                    <div class="component-label">Variation</div>
+                    <div class="direction-info">(E ise çıkar)<br>(W ise topla)</div>
+                    <input type="number" id="var1" min="0" max="180" onchange="calculate()" placeholder="0">
+                    <select id="var_dir1" onchange="calculate()">
+                        <option value="E">E</option>
+                        <option value="W">W</option>
+                    </select>
+                </div>
+                
+                <div style="width: 75px;"></div> <!-- Ortadaki boşluk (eski Variation3 yeri) -->
+                
+                <div class="component variation2 var-box">
+                    <div class="component-label">Variation</div>
+                    <div class="direction-info">(E ise çıkar)<br>(W ise topla)</div>
+                    <input type="number" id="var2" min="0" max="180" onchange="syncVar()" placeholder="0">
+                    <select id="var_dir2" onchange="syncVar()">
+                        <option value="E">E</option>
+                        <option value="W">W</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Row 4: Boş satır -->
+            
+            <!-- Row 5: TC Drift TH + Note -->
+            <div class="row">
+                <div class="component tc">
+                    <div class="component-label">TC</div>
+                    <div class="direction-placeholder"></div>
+                    <input type="number" id="tc" min="0" max="359" onchange="calculate()" placeholder="000">
+                </div>
+                
+                <div class="component drift-bottom">
+                    <div class="component-label">Drift</div>
+                    <div class="direction-info">(L ise çıkar)<br>(R ise topla)</div>
+                    <input type="number" id="drift2" min="0" max="180" onchange="syncDrift()" placeholder="0">
+                    <select id="drift_dir2" onchange="syncDrift()">
+                        <option value="L">L</option>
+                        <option value="R">R</option>
+                    </select>
+                </div>
+                
+                <div class="component th">
+                    <div class="component-label">TH</div>
+                    <div class="direction-placeholder"></div>
+                    <input type="number" id="th" min="0" max="359" onchange="calculate()" placeholder="000">
+                </div>
+
+                <div style="width: 80px;"></div> <!-- Deviation konumu için boşluk -->
+                <div style="width: 72px;"></div> <!-- CH konumu için boşluk - çeyrek cm sağa (+7px) -->
+
+                <div class="component note2">
+                    <div class="text-display">YERDE, HARİTA ÜZERİNDE</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- İletişim Sayfası -->
+    <div class="contact-page" id="contact-page" style="display: none;">
+        <div class="contact-container">
+            <h2>İletişim</h2>
+            
+            <div class="success-message" id="success-message">
+                Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız.
+            </div>
+            
+            <div class="error-message" id="error-message">
+                Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyiniz.
+            </div>
+            
+            <form id="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Ad Soyad</label>
+                    <input type="text" id="name" name="name" required placeholder="Adınız ve Soyadınız">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">E-posta</label>
+                    <input type="email" id="email" name="email" required placeholder="example@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Telefon (Opsiyonel)</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+90 531 978 44 22">
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Konu</label>
+                    <input type="text" id="subject" name="subject" required placeholder="Mesaj konusu">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Mesaj</label>
+                    <textarea id="message" name="message" required placeholder="Mesajınızı buraya yazınız..."></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Mesaj Gönder</button>
+            </form>
+            
+            <div class="contact-info">
+                <p style="font-size: 9px; margin: 2px 0;"><strong>Diğer İletişim Yolları:</strong></p>
+                <p style="font-size: 9px; margin: 2px 0;">📧 E-posta: <a href="mailto:tsraworkshop@gmail.com">tsraworkshop@gmail.com</a></p>
+                <p style="font-size: 9px; margin: 2px 0;">📞 Telefon: <a href="tel:+905319784422">+90 531 978 44 22</a></p>
+                <div style="margin-top: 5px;">
+                    <p style="font-size: 9px; margin: 2px 0;"><strong>📍 Adres:</strong></p>
+                    <p style="font-size: 9px; margin: 2px 0;"><strong>TSRA Eğitim Danışmanlık</strong></p>
+                    <p style="font-size: 9px; margin: 2px 0;">Abdullah Oraj HÜSEYNİKLİOĞLU</p>
+                    <p style="font-size: 9px; margin: 2px 0;">Çankaya Mh. Barış Manço Bulvarı</p>
+                    <p style="font-size: 9px; margin: 2px 0;">Topçuoğlu Park Evleri Kepez / ANTALYA</p>
+                    <p style="font-size: 9px; margin: 2px 0;">Düden V.D. No: 464 015 4738</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hakkımızda Sayfası -->
+    <div class="about-page" id="about-page" style="display: none;">
+        <div class="about-container">
+            <div class="about-header">
+                <h1 class="about-title">TSRA Eğitim Danışmanlık</h1>
+                <p class="about-subtitle">Geleceğin liderleri için kaliteli eğitim ve profesyonel danışmanlık hizmetleri</p>
+            </div>
+
+            <div class="about-section">
+                <h2 class="section-title">
+                    <span>🎯</span>
+                    Misyonumuz
+                </h2>
+                <div class="section-content">
+                    <p>TSRA Eğitim Danışmanlık olarak, bireylerin ve kurumların eğitim ihtiyaçlarını karşılamak, kaliteli eğitim programları sunmak ve profesyonel gelişime katkıda bulunmak için faaliyet gösteriyoruz. Amacımız, her yaştan öğrenciye en iyi eğitim deneyimini sunarak, onların potansiyellerini keşfetmelerine yardımcı olmaktır.</p>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h2 class="section-title">
+                    <span>🔭</span>
+                    Vizyonumuz
+                </h2>
+                <div class="section-content">
+                    <p>Türkiye'nin önde gelen eğitim danışmanlık kurumu olmak ve uluslararası standartlarda eğitim hizmetleri sunarak, öğrencilerimizin global dünyada başarılı olmalarına katkıda bulunmak. Yenilikçi eğitim metodları ve teknoloji destekli öğrenme deneyimleri ile eğitimde fark yaratmak.</p>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h2 class="section-title">
+                    <span>⭐</span>
+                    Neden TSRA?
+                </h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">🎓</span>
+                        <h3 class="feature-title">Uzman Kadro</h3>
+                        <p class="feature-description">Alanında deneyimli ve sertifikalı eğitmenlerden oluşan profesyonel ekibimiz</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">📊</span>
+                        <h3 class="feature-title">Kişiselleştirilmiş Eğitim</h3>
+                        <p class="feature-description">Her öğrencinin ihtiyacına özel hazırlanmış eğitim programları</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">💻</span>
+                        <h3 class="feature-title">Modern Teknoloji</h3>
+                        <p class="feature-description">En güncel eğitim teknolojileri ve interaktif öğrenme araçları</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🏆</span>
+                        <h3 class="feature-title">Başarı Odaklı</h3>
+                        <p class="feature-description">Ölçülebilir sonuçlar ve sürekli gelişim takibi</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h2 class="section-title">
+                    <span>📈</span>
+                    Başarılarımız
+                </h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Mezun Öğrenci</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Yıllık Deneyim</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Eğitim Programı</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Başarı Oranı</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h2 class="section-title">
+                    <span>👨‍💼</span>
+                    Kurucumuz
+                </h2>
+                <div class="section-content">
+                    <p><strong>Abdullah Oraj HÜSEYNİKLİOĞLU</strong> - TSRA Eğitim Danışmanlık'ın kurucusu ve genel müdürü olarak, eğitim sektöründeki uzun yıllara dayanan deneyimi ile kurumumuza liderlik etmektedir. Kaliteli eğitim ve öğrenci başarısına olan tutkusu, TSRA'nın bugünkü konumuna gelmesinde en büyük etkendir.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // EmailJS kütüphanesinin yüklenip yüklenmediğini kontrol et
+        function initializeEmailJS() {
+            if (typeof emailjs !== 'undefined') {
+                emailjs.init("YOUR_PUBLIC_KEY_HERE"); // Bu key'i EmailJS'den alacaksınız
+            }
+        }
+
+        // Sayfa yüklendiğinde EmailJS'i başlat
+        window.addEventListener('load', initializeEmailJS);
+
+        function showCalculator() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('calculator-page').style.display = 'flex';
+            document.getElementById('contact-page').style.display = 'none';
+            document.getElementById('about-page').style.display = 'none';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function showHome() {
+            document.getElementById('main-content').style.display = 'flex';
+            document.getElementById('calculator-page').style.display = 'none';
+            document.getElementById('contact-page').style.display = 'none';
+            document.getElementById('about-page').style.display = 'none';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function showContact() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('calculator-page').style.display = 'none';
+            document.getElementById('contact-page').style.display = 'flex';
+            document.getElementById('about-page').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function showAbout() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('calculator-page').style.display = 'none';
+            document.getElementById('contact-page').style.display = 'none';
+            document.getElementById('about-page').style.display = 'flex';
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const form = document.getElementById('contact-form');
+            const submitBtn = form.querySelector('.submit-btn');
+            const successMsg = document.getElementById('success-message');
+            
+            successMsg.style.display = 'none';
+            
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Gönderiliyor...';
+            submitBtn.disabled = true;
+            
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone') || '',
+                subject: formData.get('subject'),
+                message: formData.get('message')
+            };
+            
+            setTimeout(() => {
+                const mailtoLink = `mailto:tsraworkshop@gmail.com?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(
+                    `Ad Soyad: ${data.name}\nE-posta: ${data.email}\nTelefon: ${data.phone}\n\nMesaj:\n${data.message}`
+                )}`;
+                
+                window.location.href = mailtoLink;
+                successMsg.style.display = 'block';
+                form.reset();
+                
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 5000);
+            }, 1000);
+        }
+
+        function normalizeAngle(angle) {
+            angle = angle % 360;
+            return angle < 0 ? angle + 360 : angle;
+        }
+        
+        function setValueSilently(id, value) {
+            const element = document.getElementById(id);
+            const oldHandler = element.onchange;
+            element.onchange = null;
+            element.value = value;
+            element.onchange = oldHandler;
+        }
+        
+        function syncVar() {
+            const var1Val = document.getElementById('var1').value;
+            const var1Dir = document.getElementById('var_dir1').value;
+            const var2Val = document.getElementById('var2').value;
+            const var2Dir = document.getElementById('var_dir2').value;
+            
+            // Sync variation values and directions
+            if (var1Val && !var2Val) {
+                setValueSilently('var2', var1Val);
+                document.getElementById('var_dir2').value = var1Dir;
+            } else if (var2Val && !var1Val) {
+                setValueSilently('var1', var2Val);
+                document.getElementById('var_dir1').value = var2Dir;
+            }
+            calculate();
+        }
+        
+        function syncDrift() {
+            const drift1Val = document.getElementById('drift').value;
+            const drift1Dir = document.getElementById('drift_dir').value;
+            const drift2Val = document.getElementById('drift2').value;
+            const drift2Dir = document.getElementById('drift_dir2').value;
+            
+            if (drift2Val && !drift1Val) {
+                setValueSilently('drift', drift2Val);
+                document.getElementById('drift_dir').value = drift2Dir;
+            } else if (drift1Val && !drift2Val) {
+                setValueSilently('drift2', drift1Val);
+                document.getElementById('drift_dir2').value = drift1Dir;
+            }
+            calculate();
+        }
+
+        function calculate() {
+            // Get all values - treat empty as 0
+            let tc = parseInt(document.getElementById('tc').value) || 0;
+            let mc = parseInt(document.getElementById('mc').value) || 0;
+            let th = parseInt(document.getElementById('th').value) || 0;
+            let mh = parseInt(document.getElementById('mh').value) || 0;
+            let ch = parseInt(document.getElementById('ch').value) || 0;
+            
+            const varVal = parseInt(document.getElementById('var1').value) || 0;
+            const varDir = document.getElementById('var_dir1').value || 'E';
+            const driftVal = parseInt(document.getElementById('drift').value) || 0;
+            const driftDir = document.getElementById('drift_dir').value || 'L';
+            const devVal = parseInt(document.getElementById('dev').value) || 0;
+            const devDir = document.getElementById('dev_dir').value || 'E';
+
+            // Sync variation and drift values
+            const var1Val = document.getElementById('var1').value;
+            const var1Dir = document.getElementById('var_dir1').value;
+            const var2Val = document.getElementById('var2').value;
+            const var2Dir = document.getElementById('var_dir2').value;
+            
+            const drift1Val = document.getElementById('drift').value;
+            const drift1Dir = document.getElementById('drift_dir').value;
+            const drift2Val = document.getElementById('drift2').value;
+            const drift2Dir = document.getElementById('drift_dir2').value;
+            
+            if (var1Val && !var2Val) {
+                setValueSilently('var2', var1Val);
+                document.getElementById('var_dir2').value = var1Dir;
+            } else if (var2Val && !var1Val) {
+                setValueSilently('var1', var2Val);
+                document.getElementById('var_dir1').value = var2Dir;
+            }
+            
+            if (drift1Val && !drift2Val) {
+                setValueSilently('drift2', drift1Val);
+                document.getElementById('drift_dir2').value = drift1Dir;
+            } else if (drift2Val && !drift1Val) {
+                setValueSilently('drift', drift2Val);
+                document.getElementById('drift_dir').value = drift2Dir;
+            }
+
+            // Calculate all missing values iteratively
+            for (let i = 0; i < 20; i++) {
+                let hasChanges = false;
+                let prevTC = tc, prevMC = mc, prevTH = th, prevMH = mh, prevCH = ch;
+                
+                // TC ↔ Variation ↔ MC
+                if (tc > 0 && varVal > 0 && !mc) {
+                    if (varDir === 'E') {
+                        mc = normalizeAngle(tc - varVal);
+                    } else if (varDir === 'W') {
+                        mc = normalizeAngle(tc + varVal);
+                    }
+                }
+                if (mc > 0 && varVal > 0 && !tc) {
+                    if (varDir === 'E') {
+                        tc = normalizeAngle(mc + varVal);
+                    } else if (varDir === 'W') {
+                        tc = normalizeAngle(mc - varVal);
+                    }
+                }
+
+                // TC ↔ Drift ↔ TH
+                if (tc > 0 && driftVal > 0 && !th) {
+                    if (driftDir === 'L') {
+                        th = normalizeAngle(tc - driftVal);
+                    } else if (driftDir === 'R') {
+                        th = normalizeAngle(tc + driftVal);
+                    }
+                }
+                if (th > 0 && driftVal > 0 && !tc) {
+                    if (driftDir === 'L') {
+                        tc = normalizeAngle(th + driftVal);
+                    } else if (driftDir === 'R') {
+                        tc = normalizeAngle(th - driftVal);
+                    }
+                }
+
+                // TH ↔ Variation ↔ MH
+                if (th > 0 && varVal > 0 && !mh) {
+                    if (varDir === 'E') {
+                        mh = normalizeAngle(th - varVal);
+                    } else if (varDir === 'W') {
+                        mh = normalizeAngle(th + varVal);
+                    }
+                }
+                if (mh > 0 && varVal > 0 && !th) {
+                    if (varDir === 'E') {
+                        th = normalizeAngle(mh + varVal);
+                    } else if (varDir === 'W') {
+                        th = normalizeAngle(mh - varVal);
+                    }
+                }
+
+                // MC ↔ Drift ↔ MH
+                if (mc > 0 && driftVal > 0 && !mh) {
+                    if (driftDir === 'L') {
+                        mh = normalizeAngle(mc - driftVal);
+                    } else if (driftDir === 'R') {
+                        mh = normalizeAngle(mc + driftVal);
+                    }
+                }
+                if (mh > 0 && driftVal > 0 && !mc) {
+                    if (driftDir === 'L') {
+                        mc = normalizeAngle(mh + driftVal);
+                    } else if (driftDir === 'R') {
+                        mc = normalizeAngle(mh - driftVal);
+                    }
+                }
+
+                // MH ↔ Deviation ↔ CH (Priority: always try to calculate CH)
+                if (mh > 0 && devVal > 0) {
+                    if (devDir === 'E') {
+                        ch = normalizeAngle(mh - devVal);
+                    } else if (devDir === 'W') {
+                        ch = normalizeAngle(mh + devVal);
+                    }
+                }
+                if (ch > 0 && devVal > 0 && !mh) {
+                    if (devDir === 'E') {
+                        mh = normalizeAngle(ch + devVal);
+                    } else if (devDir === 'W') {
+                        mh = normalizeAngle(ch - devVal);
+                    }
+                }
+                
+                // Check if values changed
+                if (tc !== prevTC || mc !== prevMC || th !== prevTH || mh !== prevMH || ch !== prevCH) {
+                    hasChanges = true;
+                }
+                
+                if (!hasChanges) break;
+            }
+
+            // Always update all fields with calculated values
+            if (tc > 0) setValueSilently('tc', tc.toString().padStart(3, '0'));
+            if (mc > 0) setValueSilently('mc', mc.toString().padStart(3, '0'));
+            if (th > 0) setValueSilently('th', th.toString().padStart(3, '0'));
+            if (mh > 0) setValueSilently('mh', mh.toString().padStart(3, '0'));
+            if (ch > 0) setValueSilently('ch', ch.toString().padStart(3, '0'));
+        }
+    </script>
+</body>
+</html>
